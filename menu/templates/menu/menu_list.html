@@ -1,0 +1,25 @@
+{% extends 'menu/base.html' %}
+{% block content %}
+<h1 class="mb-4">Our Menu</h1>
+<div class="text-center mb-4">
+    <a href="{% url 'menu_list' %}" class="btn btn-outline-dark m-1">All Items</a>
+    {% for category in categories %}
+        <a href="?category={{ category.name }}" class="btn btn-outline-dark m-1">{{ category.name }}</a>
+    {% endfor %}
+</div>
+<div class="row">
+    {% for item in items %}
+    <div class="col-md-4 mb-4">
+        <div class="card">
+            <img src="{{ item.image.url }}" class="card-img-top" alt="{{ item.name }}" style="height: 200px; object-fit: cover;">
+            <div class="card-body">
+                <h5 class="card-title">{{ item.name }}</h5>
+                <p class="card-text">{{ item.description }}</p>
+                <p class="card-text"><strong>${{ item.price }}</strong></p>
+                <a href="{% url 'add_to_cart' item.id %}" class="btn btn-primary">Add to Cart</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
